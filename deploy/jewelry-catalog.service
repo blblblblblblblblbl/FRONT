@@ -1,0 +1,27 @@
+# systemd unit для запуска Next.js в проде
+# Путь установки (пример): /etc/systemd/system/jewelry-catalog.service
+# После копирования:
+#   systemctl daemon-reload
+#   systemctl enable --now jewelry-catalog
+# Логи:
+#   journalctl -u jewelry-catalog -f
+
+[Unit]
+Description=Jewelry Catalog (Next.js)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/var/www/jewelry-catalog
+Environment=NODE_ENV=production
+Environment=PORT=3000
+ExecStart=/usr/bin/npm start
+Restart=always
+RestartSec=2
+
+# Важно: сервис должен работать от обычного пользователя (не root)
+User=www-data
+Group=www-data
+
+[Install]
+WantedBy=multi-user.target
