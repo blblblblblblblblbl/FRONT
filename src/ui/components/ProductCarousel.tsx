@@ -56,8 +56,9 @@ export function ProductCarousel({ images, title }: Props) {
           <div className="flex h-full">
             {images.map((img, idx) => {
               const show = shouldRenderSlide(idx, selectedIndex);
+              const key = img.kind === "local" ? img.path : img.url;
               return (
-                <div key={`${img.path}-${idx}`} className="min-w-0 flex-[0_0_100%]">
+                <div key={`${key}-${idx}`} className="min-w-0 flex-[0_0_100%]">
                   <div className="h-full">
                     {show ? (
                       <ResponsiveImage
