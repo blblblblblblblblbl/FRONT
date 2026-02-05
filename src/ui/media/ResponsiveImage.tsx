@@ -19,7 +19,7 @@ export function ResponsiveImage({ image, priority, className }: Props) {
         alt={image.alt}
         sizes={image.sizes}
         fill={Boolean(image.fill)}
-        style={{ objectFit: "cover" }}
+        style={{ objectFit: "contain", objectPosition: "center" }}
         priority={priority}
       />
     </div>

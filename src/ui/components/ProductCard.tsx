@@ -66,25 +66,7 @@ export function ProductCard({ product, telegramUsername }: Props) {
           ))}
         </dl>
 
-        {(product.specs.care || product.specs.shipping || product.specs.returns) && (
-          <div className="mt-4 space-y-2 text-sm text-neutral-700">
-            {product.specs.care ? (
-              <p>
-                <span className="font-semibold">Уход:</span> {product.specs.care}
-              </p>
-            ) : null}
-            {product.specs.shipping ? (
-              <p>
-                <span className="font-semibold">Доставка:</span> {product.specs.shipping}
-              </p>
-            ) : null}
-            {product.specs.returns ? (
-              <p>
-                <span className="font-semibold">Возврат:</span> {product.specs.returns}
-              </p>
-            ) : null}
-          </div>
-        )}
+        {/* Removed Уход / Доставка / Возврат fields per request */}
       </div>
 
       <div className="mt-5">
