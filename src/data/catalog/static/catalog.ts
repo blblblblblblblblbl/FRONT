@@ -18,19 +18,6 @@ export const catalog: Catalog = {
       specs: {
         sku: "BUS-001",
         weightGrams: 2.1,
-
-        metalColor: "Белый",
-        plating: "Родирование",
-        stones: "Без вставок",
-        size: "16–18",
-        style: "Минимализм",
-        collection: "Aurora",
-        handmade: true,
-        material: "Серебро",
-        assay: "925",
-        care: "Избегайте контакта с бытовой химией; храните в мягком мешочке.",
-        shipping: "Отправка 1–3 дня, доставка СДЭК/Почта.",
-        returns: "Возврат/обмен 7 дней при сохранении товарного вида."
       }
     }
   ]

@@ -7,7 +7,7 @@ export type Money = {
 
 export type JewelrySpecs = {
   sku: string;
-  material: string;
+  material?: string;
   assay?: string;
   metalColor?: string;
   plating?: string;
