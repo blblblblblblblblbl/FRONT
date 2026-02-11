@@ -1,11 +1,11 @@
-import type { GetStaticProps, InferGetStaticPropsType } from "next";
+import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
 
 import { getCatalog } from "@/domain/use-cases/getCatalog";
 import { buildTelegramLink } from "@/lib/telegram";
 import { CatalogView } from "@/ui/views/CatalogView";
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const catalog = await getCatalog();
 
   return {
@@ -15,7 +15,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 export default function HomePage({
   catalog,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
 
   const telegramUsername = catalog.telegramUsername?.trim() ?? "";
   const tgLink = telegramUsername ? buildTelegramLink(telegramUsername) : "";
@@ -59,7 +59,7 @@ export default function HomePage({
         <CatalogView catalog={catalog} />
 
         <footer className="mt-12 border-t border-neutral-200 pt-6 text-xs text-neutral-500">
-          Фото хранятся локально в Vercel (обновление через redeploy).
+          Каталог загружается из удаленного JSON при каждом запросе страницы.
         </footer>
       </main>
     </>
