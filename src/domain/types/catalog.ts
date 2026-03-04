@@ -1,4 +1,4 @@
-import type { ImageRef } from "@/domain/types/media";
+import type { MediaRef } from "@/domain/types/media";
 
 export type Money = {
   amount: number;
@@ -29,7 +29,7 @@ export type Product = {
   description: string;
   price: Money;
   available: boolean;
-  images: ImageRef[];
+  media: MediaRef[];
   specs: JewelrySpecs;
 };
 

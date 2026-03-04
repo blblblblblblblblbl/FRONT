@@ -2,12 +2,14 @@ import EmblaCarousel from "embla-carousel";
 import type { EmblaCarouselType } from "embla-carousel";
 import React from "react";
 
-import type { ImageRef } from "@/domain/types/media";
+import type { MediaRef } from "@/domain/types/media";
+import { getMediaSrc, inferMediaType } from "@/domain/types/media";
 import { getMediaResolver } from "@/ui/media/getMediaResolver";
 import { ResponsiveImage } from "@/ui/media/ResponsiveImage";
+import { ResponsiveVideo } from "@/ui/media/ResponsiveVideo";
 
 type Props = {
-  images: ImageRef[];
+  media: MediaRef[];
   title: string;
 };
 
@@ -19,7 +21,7 @@ function shouldRenderSlide(index: number, selectedIndex: number): boolean {
   );
 }
 
-export function ProductCarousel({ images, title }: Props) {
+export function ProductCarousel({ media, title }: Props) {
   const viewportRef = React.useRef<HTMLDivElement | null>(null);
   const emblaRef = React.useRef<EmblaCarouselType | null>(null);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
@@ -54,18 +56,27 @@ export function ProductCarousel({ images, title }: Props) {
       >
         <div ref={viewportRef} className="h-full">
           <div className="flex h-full">
-            {images.map((img, idx) => {
+            {media.map((item, idx) => {
               const show = shouldRenderSlide(idx, selectedIndex);
-              const key = img.kind === "local" ? img.path : img.url;
+              const key = item.kind === "local" ? item.path : item.url;
+              const mediaType = inferMediaType(item);
               return (
                 <div key={`${key}-${idx}`} className="min-w-0 flex-[0_0_100%]">
                   <div className="h-full">
                     {show ? (
-                      <ResponsiveImage
-                        image={resolver.resolveImage(img, "carousel")}
-                        priority={idx === 0}
-                        className="h-full"
-                      />
+                      mediaType === "video" ? (
+                        <ResponsiveVideo
+                          src={getMediaSrc(item)}
+                          title={(item.alt?.trim() ? item.alt : `Видео: ${title}`) ?? title}
+                          className="h-full"
+                        />
+                      ) : (
+                        <ResponsiveImage
+                          image={resolver.resolveImage(item, "carousel")}
+                          priority={idx === 0}
+                          className="h-full"
+                        />
+                      )
                     ) : (
                       <div className="h-full bg-gradient-to-br from-neutral-100 to-neutral-200" />
                     )}
@@ -77,19 +88,19 @@ export function ProductCarousel({ images, title }: Props) {
         </div>
       </div>
 
-      {images.length > 1 ? (
+      {media.length > 1 ? (
         <div className="mt-3 flex items-center justify-between gap-3">
           <button
             type="button"
             className="rounded-lg border border-neutral-200 bg-white px-3 py-2 text-xs hover:bg-neutral-50"
             onClick={() => emblaRef.current?.scrollPrev()}
-            aria-label={`Предыдущее фото: ${title}`}
+            aria-label={`Предыдущее медиа: ${title}`}
           >
             Назад
           </button>
 
           <div className="flex items-center gap-1">
-            {images.map((_, idx) => (
+            {media.map((_, idx) => (
               <button
                 key={idx}
                 type="button"
@@ -98,7 +109,7 @@ export function ProductCarousel({ images, title }: Props) {
                   (idx === selectedIndex ? "bg-neutral-800" : "bg-neutral-300")
                 }
                 onClick={() => emblaRef.current?.scrollTo(idx)}
-                aria-label={`Перейти к фото ${idx + 1}: ${title}`}
+                aria-label={`Перейти к медиа ${idx + 1}: ${title}`}
               />
             ))}
           </div>
@@ -107,7 +118,7 @@ export function ProductCarousel({ images, title }: Props) {
             type="button"
             className="rounded-lg border border-neutral-200 bg-white px-3 py-2 text-xs hover:bg-neutral-50"
             onClick={() => emblaRef.current?.scrollNext()}
-            aria-label={`Следующее фото: ${title}`}
+            aria-label={`Следующее медиа: ${title}`}
           >
             Вперёд
           </button>

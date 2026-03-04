@@ -29,7 +29,7 @@ export function ProductCard({ product, telegramUsername }: Props) {
 
   return (
     <article className="rounded-2xl border border-neutral-200 bg-white p-4 shadow-soft">
-      <ProductCarousel images={product.images} title={product.title} />
+      <ProductCarousel media={product.media} title={product.title} />
 
       <div className="mt-4 flex items-start justify-between gap-3">
         <div>
