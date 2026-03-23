@@ -1,5 +1,6 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
+import Link from "next/link";
 
 import { getCatalog } from "@/domain/use-cases/getCatalog";
 import { buildTelegramLink } from "@/lib/telegram";
@@ -57,6 +58,23 @@ export default function HomePage({
         </div>
 
         <CatalogView catalog={catalog} />
+
+        <div className="mt-10 rounded-2xl border border-neutral-200 bg-neutral-50 p-5">
+          <h2 className="text-base font-semibold text-neutral-800">
+            🛁 Выбираете плитку для ванной?
+          </h2>
+          <p className="mt-1 text-sm text-neutral-600">
+            Советник поможет подобрать формат и цвет для небольшой ванной —
+            сравнение размеров, плюсы и минусы, ссылки на магазины в
+            Новосибирске.
+          </p>
+          <Link
+            href="/tile-advisor"
+            className="mt-3 inline-flex items-center rounded-xl border-2 border-neutral-900 bg-white px-4 py-2.5 text-sm font-semibold text-neutral-900 shadow-sm transition-colors hover:bg-neutral-50"
+          >
+            Открыть советник по плитке →
+          </Link>
+        </div>
 
         <footer className="mt-12 border-t border-neutral-200 pt-6 text-xs text-neutral-500">
           Каталог загружается из удаленного JSON при каждом запросе страницы.
