@@ -1,5 +1,6 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
+import Link from "next/link";
 
 import { getCatalog } from "@/domain/use-cases/getCatalog";
 import { buildTelegramLink } from "@/lib/telegram";
@@ -57,6 +58,27 @@ export default function HomePage({
         </div>
 
         <CatalogView catalog={catalog} />
+
+        {/* Psychologist info banner */}
+        <div className="mt-10 rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm">
+          <p className="text-xs font-semibold uppercase tracking-widest text-neutral-400">
+            Полезно знать
+          </p>
+          <h2 className="mt-1 text-lg font-semibold text-neutral-900">
+            Как выбрать психолога и когда обращаться
+          </h2>
+          <p className="mt-2 text-sm text-neutral-600">
+            Тревога, выгорание, сложные отношения — разобраться помогает
+            специалист. Гид по видам терапии, советам по выбору и частым
+            вопросам.
+          </p>
+          <Link
+            href="/psychologist"
+            className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-neutral-900 underline-offset-2 hover:underline"
+          >
+            Читать гид →
+          </Link>
+        </div>
 
         <footer className="mt-12 border-t border-neutral-200 pt-6 text-xs text-neutral-500">
           Каталог загружается из удаленного JSON при каждом запросе страницы.
